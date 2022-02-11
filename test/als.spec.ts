@@ -1,7 +1,9 @@
-import { isAlsSupported, getNodeVersion, nodeVersionString } from '../lib/nodeVersionUtils'
+import * as AsyncHooks from 'async_hooks'
+
+const isAlsSupported = !!AsyncHooks.AsyncLocalStorage
 
 describe('AsyncLocalStorage tests', () => {
-  if (isAlsSupported(getNodeVersion(nodeVersionString))) {
+  if (isAlsSupported) {
     const { als } = require('../lib/als')
 
     describe('if set is called without running in context', () => {

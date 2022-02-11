@@ -1,8 +1,9 @@
 import type { AsynchronousLocalStorage } from './lib/als-types'
+import * as AsyncHooks from 'async_hooks'
+
 export type { AsynchronousLocalStorage } from './lib/als-types'
 
-const { getNodeVersion, isAlsSupported, nodeVersionString } = require('./lib/nodeVersionUtils')
-export const als: AsynchronousLocalStorage = isAlsSupported(getNodeVersion(nodeVersionString))
+export const als: AsynchronousLocalStorage = AsyncHooks.AsyncLocalStorage
   ? require('./lib/als').als
   : require('./lib/cls-fallback').cls
 
